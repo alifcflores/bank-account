@@ -10,22 +10,22 @@ describe('Bank Account', () => {
   test('can deposit money', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(100);
+    account.deposit(100);
     expect(account.balance).toEqual(100);
   });
 
   test('can deposit money sequentially', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(100);
-    account.withDeposit(50);
+    account.deposit(100);
+    account.deposit(50);
     expect(account.balance).toEqual(150);
   });
 
   test('can withdraw money', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(100);
+    account.deposit(100);
     account.withdraw(50);
     expect(account.balance).toEqual(50);
   });
@@ -33,7 +33,7 @@ describe('Bank Account', () => {
   test('can withdraw money sequentially', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(100);
+    account.deposit(100);
     account.withdraw(20);
     account.withdraw(80);
     expect(account.balance).toEqual(0);
@@ -51,7 +51,7 @@ describe('Bank Account', () => {
     account.open();
     account.close();
     expect(() => {
-      account.withDeposit(50);
+      account.deposit(50);
     }).toThrow(ValueError);
   });
 
@@ -82,7 +82,7 @@ describe('Bank Account', () => {
   test('reopened account does not retain balance', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(50);
+    account.deposit(50);
     account.close();
     account.open();
     expect(account.balance).toEqual(0);
@@ -91,7 +91,7 @@ describe('Bank Account', () => {
   test('cannot withdraw more than Deposited', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(25);
+    account.deposit(25);
     expect(() => {
       account.withdraw(50);
     }).toThrow(ValueError);
@@ -100,7 +100,7 @@ describe('Bank Account', () => {
   test('cannot withdraw negative amount', () => {
     const account = new BankAccount();
     account.open();
-    account.withDeposit(100);
+    account.deposit(100);
     expect(() => {
       account.withdraw(-50);
     }).toThrow(ValueError);
@@ -110,7 +110,7 @@ describe('Bank Account', () => {
     const account = new BankAccount();
     account.open();
     expect(() => {
-      account.withDeposit(-50);
+      account.deposit(-50);
     }).toThrow(ValueError);
   });
 

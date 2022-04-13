@@ -20,7 +20,7 @@ export class BankAccount {
     this.status = false;
   }
 
-  withDeposit(deposit) {
+  deposit(deposit) {
     if(this.checkAccountIsClosed() || deposit < 0) throw new ValueError;
     this.currentBalance += deposit;
   }
